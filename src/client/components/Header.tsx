@@ -1,4 +1,4 @@
-import { Moon, Sun, Gamepad2 } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import logo from "../assets/logo.svg";
 import "./Header.css";
 
@@ -29,7 +29,6 @@ export default function Header({
             Me
           </button>
           <button className="games-btn" onClick={onNavigateToGames}>
-            <Gamepad2 size={18} />
             Games
           </button>
         </div>
