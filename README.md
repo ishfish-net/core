@@ -34,7 +34,7 @@ Get started in minutes with local development or deploy directly via the Cloudfl
 To start a new project with this template, run:
 
 ```bash
-npm create cloudflare@latest -- --template=cloudflare/templates/vite-react-template
+pnpm create cloudflare@latest core --template=cloudflare/templates/vite-react-template
 ```
 
 A live deployment of this template is available at:
@@ -45,13 +45,13 @@ A live deployment of this template is available at:
 Install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 Start the development server with:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Your application will be available at [http://localhost:5173](http://localhost:5173).
@@ -61,25 +61,25 @@ Your application will be available at [http://localhost:5173](http://localhost:5
 Build your project for production:
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 Preview your build locally:
 
 ```bash
-npm run preview
+pnpm run preview
 ```
 
 Deploy your project to Cloudflare Workers:
 
 ```bash
-npm run build && npm run deploy
+pnpm run build && pnpm run deploy
 ```
 
 Monitor your workers:
 
 ```bash
-npx wrangler tail
+pnpm wrangler tail
 ```
 
 ## Additional Resources
