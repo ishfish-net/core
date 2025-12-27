@@ -1,70 +1,62 @@
-// src/App.tsx
-
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import cloudflareLogo from "./assets/Cloudflare_Logo.svg";
-import honoLogo from "./assets/hono.svg";
-import logo from "./assets/logo.svg";
+import { useEffect, useState } from "react";
+import Header from "./components/Header";
+import SidePanel from "./components/SidePanel";
+import GamesPage from "./components/GamesPage";
+import PianoPage from "./components/PianoPage";
+import ArtPage from "./components/ArtPage";
 import "./App.css";
 
 function App() {
-	const [count, setCount] = useState(0);
-	const [name, setName] = useState("unknown");
+  const [darkMode, setDarkMode] = useState(false);
+  const [mePanelOpen, setMePanelOpen] = useState(false);
+  const [activePage, setActivePage] = useState("games");
 
-	return (
-		<>
-			<div>
-				<a href="https://vite.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-				<a href="https://hono.dev/" target="_blank">
-					<img src={honoLogo} className="logo cloudflare" alt="Hono logo" />
-				</a>
-				<a href="https://ishfish.net/" target="_blank">
-					<img src={logo} className="logo" alt="ishfish logo" />
-				</a>
-				<a href="https://workers.cloudflare.com/" target="_blank">
-					<img
-						src={cloudflareLogo}
-						className="logo cloudflare"
-						alt="Cloudflare logo"
-					/>
-				</a>
-			</div>
-			<h1>Vite + React + Hono + Cloudflare</h1>
-			<div className="card">
-				<button
-					onClick={() => setCount((count) => count + 1)}
-					aria-label="increment"
-				>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<div className="card">
-				<button
-					onClick={() => {
-						fetch("/api/")
-							.then((res) => res.json() as Promise<{ name: string }>)
-							.then((data) => setName(data.name));
-					}}
-					aria-label="get name"
-				>
-					Name from API is: {name}
-				</button>
-				<p>
-					Edit <code>server/index.ts</code> to change the name
-				</p>
-			</div>
-			<p className="read-the-docs">Click on the logos to learn more</p>
-		</>
-	);
+  // Initialize theme from localStorage or system preference
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setDarkMode(savedTheme === "dark" || (!savedTheme && prefersDark));
+  }, []);
+
+  // Update document classes and localStorage when theme/panel changes
+  useEffect(() => {
+    localStorage.setItem("theme", darkMode ? "dark" : "light");
+    const bodyClasses = [darkMode ? "dark" : "light"];
+    if (mePanelOpen) bodyClasses.push("panel-open");
+    document.body.className = bodyClasses.join(" ");
+  }, [darkMode, mePanelOpen]);
+
+  const toggleTheme = () => setDarkMode(!darkMode);
+  const toggleMePanel = () => setMePanelOpen(!mePanelOpen);
+
+  const navigateToPage = (page: string) => {
+    setActivePage(page);
+    setMePanelOpen(false);
+  };
+
+  return (
+    <div className="app-container">
+      <Header
+        darkMode={darkMode}
+        onToggleTheme={toggleTheme}
+        mePanelOpen={mePanelOpen}
+        onToggleMePanel={toggleMePanel}
+        onNavigateToGames={() => navigateToPage("games")}
+      />
+
+      <SidePanel 
+        isOpen={mePanelOpen} 
+        onNavigate={navigateToPage}
+        onClose={() => setMePanelOpen(false)}
+      />
+
+      <main className="main-content">
+        {activePage === "games" && <GamesPage />}
+        {activePage === "piano" && <PianoPage />}
+        {activePage === "art" && <ArtPage />}
+      </main>
+    </div>
+  );
 }
 
 export default App;
