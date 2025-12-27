@@ -91,3 +91,21 @@
   background-color: transparent;
   border: 1px solid;
 }
+
+.light .game-btn-secondary {
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.dark .game-btn-secondary {
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+.light .game-btn-secondary:hover {
+  background-color: #f3f4f6;
+}
+
+.dark .game-btn-secondary:hover {
+  background-color: #374151;
+}
