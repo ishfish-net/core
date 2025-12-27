@@ -5,6 +5,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import cloudflareLogo from "./assets/Cloudflare_Logo.svg";
 import honoLogo from "./assets/hono.svg";
+import logo from "./assets/logo.svg";
 import "./App.css";
 
 function App() {
@@ -22,6 +23,9 @@ function App() {
 				</a>
 				<a href="https://hono.dev/" target="_blank">
 					<img src={honoLogo} className="logo cloudflare" alt="Hono logo" />
+				</a>
+				<a href="https://ishfish.net/" target="_blank">
+					<img src={logo} className="logo" alt="ishfish logo" />
 				</a>
 				<a href="https://workers.cloudflare.com/" target="_blank">
 					<img
